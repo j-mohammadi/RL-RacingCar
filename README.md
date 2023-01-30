@@ -12,7 +12,9 @@ Other useful documents can be found in the **Resources** Folder.
 
 ## Car Environment
 Credits for the Environment: 
+
 GitHub: https://github.com/techwithtim/Pygame-Car-Racer
+
 Youtube: https://www.youtube.com/watch?v=L3ktUWfAMPg&list=PLzMcBGfZo4-kmY7Nh4kI9kPPnxJ5JMRPj&index=2
 
 ### Car
