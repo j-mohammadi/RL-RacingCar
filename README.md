@@ -210,15 +210,16 @@ class minDQN_Agent():
 
 ### Agent actions
 
-
+We are now going to explain the different actions possible for the agent. As for many race games, the car is fully controllable with the direction keys:
 
 ![keys](https://user-images.githubusercontent.com/66775006/215758287-b4b956c2-6d9c-40a9-932b-a46cf5ab7c2e.png)
 
-
+All actions possible are thus combinations of those actions: for instance pressing the left key and the forward keys makes the car both increase its velocity and turn to the left.
 
 
 ### Input of the Neural Network
 
+For inputs of the neural network, we used a very simple yet effective method called Lidar. 
 
 ![IMe](https://user-images.githubusercontent.com/66775006/215752818-6acd229d-3782-4e98-9da1-8c39b33325df.jpg)
 
