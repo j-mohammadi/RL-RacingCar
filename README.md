@@ -13,6 +13,22 @@ Other useful documents can be found in the **Resources** folder.
 
 The **Model** folder contains trained model that achieved good results in regard of our problem.
 
+The code uses several famous python librairies, one should make those imports:
+
+```
+import pygame
+import numpy as np
+import time
+import math
+import random
+import tensorflow as tf
+from tensorflow import keras
+from collections import deque
+import matplotlib.pyplot as plt
+import pandas as pd
+import os
+```
+
 ## Explication of Reinforcement Learning
 
 Reinforcement Learning is the third class of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA), and reinforcement learning. The reinforcement learning involves an environment and an agent. The agent performs an action **A** , gets rewarded with reward **R**, and changes to anoter state **S**. This concept is explained in the following diagramm.
