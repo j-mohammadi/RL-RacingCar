@@ -2,16 +2,38 @@
 
 In this project we are going to implement a Deep Reinforcement Learning algorithm in a 2D Racing car game.
 The goal of the project is to be able to build and train an autonomous AI that is capable to drive along the track. 
+We are going to focus on the Q-Learning Algorithm because of its simplicity. 
 
 ## Using the code
 
 You can use the jupyter version of the project with the file ```AsynchronousDoubleDeepQLearning.ipynb```.
 The code is quite long but is splitted in several classes that I will explain in this file.
 
-Other useful documents can be found in the **Resources** Folder.
+Other useful documents can be found in the **Resources** folder.
+
+The **Model** folder contains trained model that achieved good results in regard of our problem.
+
+## Explication of Reinforcement Learning
+
+![image](https://user-images.githubusercontent.com/66775006/215762340-583f3da4-83fa-4e6a-b76f-f282b253cfb2.png)
 
 ## Car Environment
+
+First of all, we need an environment to work with. The environment in Reinforcement Learning contains all information needed for the agent to learn. 
+Pratically, an environment stores its own state. The change of state happends when calling the `step()` method of the environment with changes the previous state to a next state according to the internal rules of the environment. A reinforcement learning environment canonicaly returns a tuple of information for the agent. Like the environment made by OpenAI Gym (https://github.com/openai/gym), our environement will return the following information for every call to the `step()` method:
+
+- **observation**: the state of the environment before taking an action 
+- **action**: the action taken 
+- **reward**: the reward that the agent got in regard of its *(action, state)* pair
+- **new_observation**: the new state returned by the environment in consequence of the action
+- **done**: a boolean indicating if the new state is terminal or not. 
+
+Additionnaly an environment should be equiped with a `reset()` method which allows for reseting its state towards the default state. This is very usefull when an episode terminates. An episode is a serie of steps from the environment until crosses a terminal state.
+
+![Circuit ](https://user-images.githubusercontent.com/66775006/215759383-94b139d4-76b7-4b7f-a0f6-51e71eac0a16.png)
+
 Credits for the Environment: 
+
 
 GitHub: https://github.com/techwithtim/Pygame-Car-Racer
 
@@ -168,7 +190,8 @@ class minDQN_Agent():
 
 ### Agent actions
 
-![image](https://user-images.githubusercontent.com/66775006/215754247-c332e252-9fcd-4a60-b766-27969d8f32ac.png)
+![keys](https://user-images.githubusercontent.com/66775006/215758287-b4b956c2-6d9c-40a9-932b-a46cf5ab7c2e.png)
+
 
 
 
