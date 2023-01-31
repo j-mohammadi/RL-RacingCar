@@ -1,7 +1,7 @@
 # :red_car: Reinforcement Learning in a 2D Racing Game
 
 In this project we are going to implement a Deep Reinforcement Learning algorithm in a 2D Racing car game.
-The goal of the project is to be able to build and train an autonomous AI that is capable to drive along the track. 
+The goal of the project is to be able to build and train an autonomous AI that is capable of driving along the track. 
 We are going to focus on the Q-Learning Algorithm because of its simplicity. 
 
 ## Using the code
@@ -11,9 +11,9 @@ The code is quite long but is splitted in several classes that I will explain in
 
 Other useful documents can be found in the **Resources** folder.
 
-The **Model** folder contains trained model that achieved good results in regard of our problem.
+The **Model** folder contains a trained model that achieved good results in regard to our problem.
 
-The code uses several famous python librairies, one should make those imports:
+The code uses several famous python libraries, one should make those imports:
 
 ```
 import pygame
@@ -31,14 +31,14 @@ import os
 
 ## Explication of Reinforcement Learning
 
-Reinforcement Learning is one of the three main classes of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA, ...), and reinforcement learning. Reinforcement learning involves an environment and an agent. The agent performs an action **A**, gets rewarded with reward **R**, and changes to anoter state **S**. This concept is explained in the following diagramm.
+Reinforcement Learning is one of the three main classes of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA, ...), and reinforcement learning. Reinforcement learning involves an environment and an agent. The agent performs an action **A**, gets rewarded with reward **R**, and changes to another state **S**. This concept is explained in the following diagram.
 
 ![image](https://user-images.githubusercontent.com/66775006/215762340-583f3da4-83fa-4e6a-b76f-f282b253cfb2.png)
 
 ## Car Environment
 
 First of all, we need an environment to work with. The environment in Reinforcement Learning contains all information needed for the agent to learn. 
-Pratically, an environment stores its own state. The change of state happends when calling the `step()` method of the environment with changes the previous state to a next state according to the internal rules of the environment. A reinforcement learning environment canonicaly returns a tuple of information for the agent. Like the environments made by OpenAI Gym (https://github.com/openai/gym), our environement will return the following information for every call of the `step()` method:
+Practically, an environment stores its own state. The change of state happens when calling the `step()` method of the environment with changes the previous state to a next state according to the internal rules of the environment. A reinforcement learning environment canonically returns a tuple of information for the agent. Like the environments made by OpenAI Gym (https://github.com/openai/gym), our environment will return the following information for every call of the `step()` method:
 
 - **observation**: the state of the environment before taking an action 
 - **action**: the action taken 
@@ -46,19 +46,19 @@ Pratically, an environment stores its own state. The change of state happends wh
 - **new_observation**: the new state returned by the environment in consequence of the action
 - **done**: a boolean indicating if the new state is terminal or not. 
 
-Additionnaly an environment should be equiped with a `reset()` method which allows for reseting its state towards the default state. This is very usefull when an episode terminates. An episode is a serie of steps from the environment until it crosses a terminal state.
+Additionally an environment should be equipped with a `reset()` method which allows for resetting its state towards the default state. This is very useful when an episode terminates. An episode is a series of steps from the environment until it crosses a terminal state.
 
-For our environment, we used a modified version of a race car game that I found on GitHub, here are the link to this project.
+For our environment, we used a modified version of a race car game that I found on GitHub, here is the link to this project.
 
 GitHub: https://github.com/techwithtim/Pygame-Car-Racer
 
 Youtube: https://www.youtube.com/watch?v=L3ktUWfAMPg&list=PLzMcBGfZo4-kmY7Nh4kI9kPPnxJ5JMRPj&index=2
 
-Our environment features a Graphical User Interface (GUI) and helps us visualize the result of our training on our agent. The GUI is displayed on the following picture.
+Our environment features a Graphical User Interface (GUI) and helps us visualize the result of our training on our agent. The GUI is displayed in the following picture.
 
 ![Circuit ](https://user-images.githubusercontent.com/66775006/215759383-94b139d4-76b7-4b7f-a0f6-51e71eac0a16.png)
 
-One can see a car in a racetrack that is subdivided in several colored boxes. Each of the boxes corresponds to a type of racetrack part. For example example, red parts correspond to straight parts while purple parts correspond to left turns. 
+One can see a car in a racetrack that is subdivided in several colored boxes. Each of the boxes corresponds to a type of racetrack part. For example, red parts correspond to straight parts while purple parts correspond to left turns. 
 
 For simplicity and readability, our environment uses two classes: the `PlayerCar` and the `car_environment`. The compressed code is displayed in the following part:
 
@@ -102,7 +102,7 @@ class car_environment():
 
 ## Q-Learning Agent
 
-Now that we have our environment, we can start the code of the agent. The principle of Q-Learning is quite simple: at every step the agent compute the *q-value* of all the possible actions, which correponds to value of each choice. Then, the agent takes the best choice if it wants to maximize its immediate reward, or takes another one if it has to explore more possibilities. We are also using a neural network as a function approximator (this is called DQN for Deep Q Network). The diagramm of DQN is displayed bellow:
+Now that we have our environment, we can start the code of the agent. The principle of Q-Learning is quite simple: at every step the agent compute the *q-value* of all the possible actions, which corresponds to the value of each choice. Then, the agent takes the best choice if it wants to maximize its immediate reward, or takes another one if it has to explore more possibilities. We are also using a neural network as a function approximator (this is called DQN for Deep Q Network). The diagram of DQN is displayed below:
 
 ![Q-Learning](https://user-images.githubusercontent.com/66775006/215767109-4a94e70b-745b-419b-8de6-5f3c0d7f4faf.png)
 
@@ -113,7 +113,7 @@ When updating the weights of our model, we use the Bellman equation as follow:
 Before we display the code of our Agent, I have to underline the tricks that are used in this version of DQN and that are often cited in research papers:
 - **Epsilon-greedy strategy**: as explained before, exploration of the environment is a key element and this allows for random exploration with a probability epsilon
 - **Double Networks**: two neural networks: a target rarely updated, and another model updated frequently are used in order to improve stability of learning.
-- **Experience replay**: experience from past steps is stored in the memory and used for fiting the model with stochastic gradient descent.
+- **Experience replay**: experience from past steps is stored in the memory and used for fitting the model with stochastic gradient descent.
 
 Here is the code of our DQN Agent:
 
@@ -228,7 +228,7 @@ class minDQN_Agent():
 
 ### Neural network
 
-For our neural network we have the following architecture with only 3 hidden layers equiped with *relu* activation functions:
+For our neural network we have the following architecture with only 3 hidden layers equipped with *relu* activation functions:
 
 ```
 Layer (type)                 Output Shape              Param #   
@@ -256,15 +256,15 @@ All actions possible are thus combinations of those actions: for instance pressi
 
 ### Input of the Neural Network
 
-For inputs of the neural network, we used a very simple yet effective method called Lidar. This methods uses raycasting in several directions and gets the distances between the circuit limits and the car for each corresponding direction. A visualisation of this technique is shown in the following pictures, when one can see the car and the different laser beams represented in red color.
+For inputs of the neural network, we used a very simple yet effective method called Lidar. This method uses raycasting in several directions and gets the distances between the circuit limits and the car for each corresponding direction. A visualization of this technique is shown in the following pictures, when one can see the car and the different laser beams represented in red color.
 
 ![IMe](https://user-images.githubusercontent.com/66775006/215752818-6acd229d-3782-4e98-9da1-8c39b33325df.jpg)
 
 ### Rewards
 
-Now that we have the environment, the actions for the agent and the inputs of the model, we need a way to tell the agent if its action are rewarded in regard of the current state. 
+Now that we have the environment, the actions for the agent and the inputs of the model, we need a way to tell the agent if its actions are rewarded in regard to the current state. 
 
-We choose here to be very simple and to assign the reward to be proportional to the distance travelled in the right direction. The angle of the right direction depends on the part of the track the car is in, thanks to the `checkCluster()` method.
+We choose here to be very simple and to assign the reward to be proportional to the distance traveled in the right direction. The angle of the right direction depends on the part of the track the car is in, thanks to the `checkCluster()` method.
 
 The part of the code that deals with the speed reward is written just below:
 
@@ -280,11 +280,11 @@ The reward below ranges from *-1* to *+1*. However we also added a negative rewa
 
 ## Multi Agent
 
-When running the code above, I realised that what while learning was indeed happening, the python programm was slow, even with `tensorflow-gpu` activated. I then decided to make some modification to the algorithm in order to further reduce computing time. 
+When running the code above, I realized that while learning was indeed happening, the python program was slow, even with `tensorflow-gpu` activated. I then decided to make some modification to the algorithm in order to further reduce computing time. 
 
-The first thing I did was to create a copy of the environment without GPU thanks to the class `car_environment_blind` so that we save some displaying time. Then, I implemented an DQN algorithm that used several agent-environments pairs, and compute the `.predict()` methods simulstaneously for outputing action values. This change is paramount because tensorflow's neural networks are not optimized for predicting single values.
+The first thing I did was to create a copy of the environment without GPU thanks to the class `car_environment_blind` so that we save some display time. Then, I implemented an DQN algorithm that used several agent-environments pairs, and computed the `.predict()` methods simultaneously for outputting action values. This change is paramount because tensorflow's neural networks are not optimized for predicting single values.
 
-Those changed displayed below helped me greatly reduce learning time.
+Those changes displayed below helped me greatly reduce learning time.
 
 ```
 class MultiDQN_Agent():
@@ -524,7 +524,7 @@ After training, we can plot the graph of the evolution of reward over time:
 
 ![image](https://user-images.githubusercontent.com/66775006/215592124-2b5531ca-5a56-460c-821a-2c71b11efd92.png)
 
-Since the agent explores its environment, it sometimes make wrong decisions and crahses against a wall. Its behaviour is not very consistant thus resulting in a very noisy graph. Lets average the previous graph in order to better understand what is going on:
+Since the agent explores its environment, it sometimes makes wrong decisions and crashes against a wall. Its behavior is not very consistent thus resulting in a very noisy graph. Lets average the previous graph in order to better understand what is going on:
 
 ![image](https://user-images.githubusercontent.com/66775006/215592143-03864f67-eeb6-4b3d-9f70-5ad04cf728c9.png)
 
@@ -538,4 +538,6 @@ One can witness that the agent tends to avoid the walls and maximize its velocit
 
 ## Conclusion of the project
 
-While results have been quite difficult to obtain due to the many hyperparameters to tune, I am very happy with the final result. The training time is quite small (less than an hour for final result shown in the GIF). In order to further improvements to the project, one can train the neural network longer, try different rewards functions taking into account for example the distance to the walls or even add another neural network architecture.
+While results have been quite difficult to obtain due to the many hyperparameters to tune, I am very happy with the final result. The training time is quite small (less than an hour for the final result shown in the GIF). In order to further improvements to the project, one can train the neural network longer, try different rewards functions taking into account for example the distance to the walls or even add another neural network architecture.
+
+
