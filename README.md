@@ -38,7 +38,7 @@ Reinforcement Learning is one of the three main classes of problems in Machine L
 ## Car Environment
 
 First of all, we need an environment to work with. The environment in Reinforcement Learning contains all information needed for the agent to learn. 
-Practically, an environment stores its own state. The change of state happens when calling the `step()` method of the environment with changes the previous state to a next state according to the internal rules of the environment. A reinforcement learning environment canonically returns a tuple of information for the agent. Like the environments made by OpenAI Gym (https://github.com/openai/gym), our environment will return the following information for every call of the `step()` method:
+Practically, an environment stores its own state. The change of state happens when calling the `step()` method of the environment which changes the previous state to a next state according to the internal rules of the environment. A reinforcement learning environment canonically returns a tuple of information for the agent. Like the environments made by OpenAI Gym (https://github.com/openai/gym), our environment will return the following information for every call of the `step()` method:
 
 - **observation**: the state of the environment before taking an action 
 - **action**: the action taken 
@@ -102,7 +102,7 @@ class car_environment():
 
 ## Q-Learning Agent
 
-Now that we have our environment, we can start the code of the agent. The principle of Q-Learning is quite simple: at every step the agent compute the *q-value* of all the possible actions, which corresponds to the value of each choice. Then, the agent takes the best choice if it wants to maximize its immediate reward, or takes another one if it has to explore more possibilities. We are also using a neural network as a function approximator (this is called DQN for Deep Q Network). The diagram of DQN is displayed below:
+Now that we have our environment, we can start the code of the agent. The principle of Q-Learning is quite simple: at every step the agent computes the *q-value* of all the possible actions, which corresponds to the value of each choice. Then, the agent takes the best choice if it wants to maximize its immediate reward, or takes another one if it has to explore more possibilities. We are also using a neural network as a function approximator (this is called DQN for Deep Q Network). The diagram of DQN is displayed below:
 
 ![Q-Learning](https://user-images.githubusercontent.com/66775006/215767109-4a94e70b-745b-419b-8de6-5f3c0d7f4faf.png)
 
