@@ -15,7 +15,7 @@ The **Model** folder contains trained model that achieved good results in regard
 
 ## Explication of Reinforcement Learning
 
-Reinforcement Learning is the third class of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA), and reinforcement learning. The reinforcement learning involves an environment and an agent. The agent performs an action `A` , gets rewarded with reward `R`, and changes to anoter state `S`. This concept is explained in the following diagramm.
+Reinforcement Learning is the third class of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA), and reinforcement learning. The reinforcement learning involves an environment and an agent. The agent performs an action **A** , gets rewarded with reward **R**, and changes to anoter state **S**. This concept is explained in the following diagramm.
 
 ![image](https://user-images.githubusercontent.com/66775006/215762340-583f3da4-83fa-4e6a-b76f-f282b253cfb2.png)
 
@@ -208,6 +208,26 @@ class minDQN_Agent():
             self.model.fit(np.array(X), np.array(Y), batch_size=batch_size, verbose=0, shuffle=True)
 ```
 
+### Neural network
+
+For our neural network we have the following architecture with only 3hiddel layers equiped with *relu* activation functions:
+
+```
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense_40 (Dense)             (None, 24)                192       
+_________________________________________________________________
+dense_41 (Dense)             (None, 32)                800       
+_________________________________________________________________
+dense_42 (Dense)             (None, 16)                528       
+_________________________________________________________________
+dense_43 (Dense)             (None, 5)                 85        
+=================================================================
+Total params: 1,605
+Trainable params: 1,605
+Non-trainable params: 0
+```
+
 ### Agent actions
 
 We are now going to explain the different actions possible for the agent. As for many race games, the car is fully controllable with the direction keys:
@@ -239,7 +259,15 @@ def rewardSpeed(self):
         return reward
 ```
 
+The reward below ranges from *-1* to *+1*. However we also added a negative reward that equals *-10* every time the agent crahses against a wall. This event also triggers the termination of the episode, encouraging the agent to avoid walls. 
+
 ## Multi Agent
+
+When running the code below, I realised that what while learning was indeed happening, the python programm was slow, even with `tensorflow-gpu` activated. I then decided to make some modification to the algorithm in order to further reduce computing time. 
+
+The first thing I did was to create a copy of the environment without GPU thanks to the class `car_environment_blind:`so that we save some displaying time. Then, I implemented an DQN algorithm that used several agent-environments pairs, and compute the `.predict()` methods simulstaneously for outputing action values. This change is paramount because tensorflow's neural networks are not optimized for predicting single values.
+
+Those changed displayed below helped me greatly reduce learning time.
 
 ```
 class MultiDQN_Agent():
@@ -411,7 +439,39 @@ class MultiDQN_Agent():
                 self.model.fit(np.array(X), np.array(Y), batch_size=batch_size, verbose=0, shuffle=True)
 ```
 
+## Training 
+
+The training is done with the following piece of code. The architecture of the environment and agent classes makes the training very simple. 
+
+```
+env = car_environment_blind(-1)
+
+observation_space = env.observation_space
+action_space = env.action_space
+
+print("Observation Space : " + str(observation_space))
+print("Action Space : " + str(action_space))
+
+multi_agent = MultiDQN_Agent(env)
+
+print("Start of exploration phase\n")
+
+train_episodes = 2000
+
+rewardsData = []
+while multi_agent.episode < train_episodes:
+    
+    experiences = multi_agent.getAction()
+    multi_agent.train(experiences)
+    
+print("\nEnd of exploration phase\n")
+```
+
 ### Saving and reloading a model
+
+Once the model was trained sufficiently I can now save it in the drive along its memory of past events in order to be able to watch the results later and even continue training.
+
+This part of the code allowed the user to save every usefull information of the model in a new folder.
 
 ```
 directory = "Model_600"
@@ -443,12 +503,22 @@ print("Done saving model: " + directory)
 
 ## Results
 
+After training, one can plot the graph of the evolution of reward over time:
+
 ![image](https://user-images.githubusercontent.com/66775006/215592124-2b5531ca-5a56-460c-821a-2c71b11efd92.png)
+
+Since the agent explores its environment, it is not very consistant thus resulting in a very noisy graph. Lets average the previous graph in order to better understand what is going on:
 
 ![image](https://user-images.githubusercontent.com/66775006/215592143-03864f67-eeb6-4b3d-9f70-5ad04cf728c9.png)
 
+This result is much more understandable, we can witness a very strong and steady progression of the agent. 
+
+The following GIF shows one of the best runs of the Multi DQN Agent on the environment GUI: 
+
 ![image](Resources/Animation.gif)
+
+One can witness that the agent tends to avoid the walls and maximize its velocity as much as possible.
 
 ## Conclusion of the project
 
-
+While results have been quite difficult to obtain due to the many hyperparameters, I am very happy with the final results. The training time is quite small (less than an hour for final result shown in the GIF). In order to further improvements to the project, one can add more training time, try different rewards functions taking into account the distance to the walls for example or even add another neural network architecture.
