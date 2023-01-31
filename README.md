@@ -15,6 +15,8 @@ The **Model** folder contains trained model that achieved good results in regard
 
 ## Explication of Reinforcement Learning
 
+Reinforcement Learning is the third class of problems in Machine Learning: we have supervised learning (classification, regression), unsupervised learning (autoencoder, PCA), and reinforcement learning. The reinforcement learning involves an environment and an agent. The agent performs an action `A` , gets rewarded with reward `R`, and changes to anoter state `S`. This concept is explained in the following diagramm.
+
 ![image](https://user-images.githubusercontent.com/66775006/215762340-583f3da4-83fa-4e6a-b76f-f282b253cfb2.png)
 
 ## Car Environment
@@ -30,16 +32,21 @@ Pratically, an environment stores its own state. The change of state happends wh
 
 Additionnaly an environment should be equiped with a `reset()` method which allows for reseting its state towards the default state. This is very usefull when an episode terminates. An episode is a serie of steps from the environment until crosses a terminal state.
 
-![Circuit ](https://user-images.githubusercontent.com/66775006/215759383-94b139d4-76b7-4b7f-a0f6-51e71eac0a16.png)
-
-Credits for the Environment: 
-
+For our environment, we used a modified version of a race car game that I found on GitHub, here are the link to this project.
 
 GitHub: https://github.com/techwithtim/Pygame-Car-Racer
 
 Youtube: https://www.youtube.com/watch?v=L3ktUWfAMPg&list=PLzMcBGfZo4-kmY7Nh4kI9kPPnxJ5JMRPj&index=2
 
-### Car
+Our environment features a Graphical User Interface (GUI) and helps us visualize the result of our training on our agent. The GUI is displayed on the following picture.
+
+![Circuit ](https://user-images.githubusercontent.com/66775006/215759383-94b139d4-76b7-4b7f-a0f6-51e71eac0a16.png)
+
+One can see a car in a racetrack that is subdivided in several colored boxes. Each of the boxes corresponds to a type of racetrack part. For example example, red parts correspond to straight parts while purple parts correspond to left turns. 
+
+For simplicity and readability, our environment uses two classes: the `PlayerCar` and the `car_environment`. The simplified code is displayed in the following part:
+
+### PlayerCar class
 
 ```
 class PlayerCar:
@@ -55,7 +62,7 @@ class PlayerCar:
     def Inputs(self, cluster_angle):
 ```
 
-### Track
+### car_environment class
 
 ```
 class car_environment():
@@ -78,6 +85,19 @@ class car_environment():
 ```
 
 ## Q-Learning Agent
+
+Now that we have our environment, we can start the code of the agent. The principle of Q-Learning is quite simple: at every step the agent compute the *q-value* of all the possible actions, which correponds to value of each choice. Then, the agent takes the best choice if it wants to maximize its immediate reward, or takes another one if it has to explore more possibilities. We are also using a neural network as a function approximator (this is called DQN for Deep Q Network). The diagramm of DQN is displayed bellow:
+
+![Q-Learning](https://user-images.githubusercontent.com/66775006/215767109-4a94e70b-745b-419b-8de6-5f3c0d7f4faf.png)
+
+When updating the weights of our model, we use the Bellman equation as follow:
+
+![Equation](https://user-images.githubusercontent.com/66775006/215766980-c8ea0673-de2d-4a1f-95de-82d8a6d92f5e.png)
+
+Before we display the code of our Agent, I have to underline the tricks that are used in this version of DQN and that are often cited in research papers:
+- **Epsilon-greedy strategy**: as explained before, exploration of the environment is a key element and this allows for random exploration with a probability epsilon
+- **Double Networks**: two neural networs are used in order to improve stability of learning. 
+- **Experience replay**: experience from past steps is stored in the memory and used for fiting the model with stochastic gradient descent.
 
 ```
 class minDQN_Agent():
@@ -189,6 +209,8 @@ class minDQN_Agent():
 ```
 
 ### Agent actions
+
+
 
 ![keys](https://user-images.githubusercontent.com/66775006/215758287-b4b956c2-6d9c-40a9-932b-a46cf5ab7c2e.png)
 
