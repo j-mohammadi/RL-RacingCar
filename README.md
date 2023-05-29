@@ -56,7 +56,7 @@ Youtube: https://www.youtube.com/watch?v=L3ktUWfAMPg&list=PLzMcBGfZo4-kmY7Nh4kI9
 
 Our environment features a Graphical User Interface (GUI) and helps us visualize the result of our training on our agent. The GUI is displayed in the following picture.
 
-![Circuit ](https://user-images.githubusercontent.com/66775006/215759383-94b139d4-76b7-4b7f-a0f6-51e71eac0a16.png)
+![Environment low](https://github.com/Jean-BaptisteAC/RL-RacingCar/assets/66775006/1a0f6844-3e02-45a2-98f5-90d6e0c6d3db)
 
 One can see a car in a racetrack that is subdivided in several colored boxes. Each of the boxes corresponds to a type of racetrack part. For example, red parts correspond to straight parts while purple parts correspond to left turns. 
 
