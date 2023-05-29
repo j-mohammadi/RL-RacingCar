@@ -6,10 +6,8 @@ We are going to focus on the Q-Learning Algorithm because of its simplicity.
 
 ## Using the code
 
-You can use the jupyter version of the project with the file ```AsynchronousDoubleDeepQLearning.ipynb```.
+You can use the python version of the project with the file ```Multi_agent_training.py```.
 The code is quite long but is splitted in several classes that I will explain in this file.
-
-Other useful documents can be found in the **Resources** folder.
 
 The **Model** folder contains a trained model that achieved good results in regard to our problem.
 
