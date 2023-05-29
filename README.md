@@ -386,7 +386,7 @@ Since the agent explores its environment, it sometimes makes wrong decisions and
 ![Comparison_rolling](https://github.com/Jean-BaptisteAC/RL-RacingCar/assets/66775006/0b1073b6-2c71-4409-b139-a8cbac364b5f)
 
 This result is much more understandable, we can witness a very strong and steady progression of the agent along the episodes.
-One major conlusion of this graph is that the use of the distance reward improves significantly the performance and reliability of our model.
+One major conclusion of this graph is that the use of the distance reward significantly improves the performance and reliability of our model.
 
 The following GIF shows one of the best runs of the Multi DQN Agent on the environment GUI: 
 
@@ -396,6 +396,4 @@ One can witness that the agent tends to avoid the walls and maximize its velocit
 
 ## Conclusion of the project
 
-While results have been quite difficult to obtain due to the many hyperparameters to tune, I am very happy with the final result. The training time is quite small (less than a few hour for the final result shown in the GIF). I managed to train an AI to learn how to drive almost perfectly and with a behavior that is very similar to humans.
-
-
+While results have been quite difficult to obtain due to the many hyperparameters to tune, I am very happy with the final result. The training time is quite small (less than a few hours for the final result shown in the GIF). I managed to train an AI to learn how to drive almost perfectly and with a behavior that is very similar to humans.
